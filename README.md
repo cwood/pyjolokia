@@ -15,7 +15,7 @@ Example
 ----------------
 
 One Request
-++++++++++++++++++
+----------------
 
     from pyjolokia.main import Jolokia
     # Enter the jolokia url
@@ -25,7 +25,7 @@ One Request
     data = j4p.request(type = 'read', mbean='java.lang:type=Threading', attribute='ThreadCount')
 
 Bulk Requsts
-++++++++++++++++++++++
+-----------------
 
     from pyjolokia.main import Jolokia
     # Enter the jolokia url
@@ -40,8 +40,7 @@ Bulk Requsts
     bulkdata = j4p.getRequests()
 
 Proxy Mode
-+++++++++++++++++++++++++
-
+------------------
     from pyjolokia.main import Jolokia
     j4p = Jolokia('http://localhost:8080/jolokia/')
     j4p.proxy(url = 'service:jmx:rmi://localhost:8080', user = 'SomeUser', password = 'somePassword')
