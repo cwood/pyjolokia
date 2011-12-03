@@ -2,7 +2,8 @@ pyJolokia
 ================
 
 This is a pure pyhon jolokia client. I moduled its usage after the javascript version.
-Currently this will only support the protocol version 6
+Currently this will only support the protocol version 6. Also this was tested with python 2.7. 
+Not sure if it is Python3, or older than python 2.4. 
 
 Features
 -------------
