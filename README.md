@@ -2,6 +2,7 @@ pyJolokia
 ================
 
 This is a pure pyhon jolokia client. I moduled its usage after the javascript version.
+Currently this will only support the protocol version 6
 
 Features
 -------------
@@ -11,8 +12,16 @@ Features
 * Proxy Support
 * Read, Write, List, Search is currenly working
 
-Example
-----------------
+TODO
+-------------------
+
+* Switch Between GET & POST Requests
+* Add abilitie to manage requests
+* Mimic simple api
+* Manage bulk requests
+
+Examples
+=====================
 
 One Request
 ----------------

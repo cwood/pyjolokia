@@ -4,7 +4,6 @@ except:
     import simplejson as json
 
 import urllib2
-from pprint import pprint
 
 class Jolokia:
     def __init__(self, url):
