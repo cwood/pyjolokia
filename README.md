@@ -27,7 +27,7 @@ Examples
 One Request
 ----------------
 
-    from pyjolokia.main import Jolokia
+    from pyjolokia import Jolokia
     # Enter the jolokia url
     j4p = Jolokia('http://localhost:8080/jolokia/')
     # Put in the type, the mbean, or other options. Check the jolokia users guide for more info
@@ -37,7 +37,7 @@ One Request
 Bulk Requsts
 -----------------
 
-    from pyjolokia.main import Jolokia
+    from pyjolokia import Jolokia
     # Enter the jolokia url
     j4p = Jolokia('http://localhost:8080/jolokia/')
     '''
@@ -51,7 +51,7 @@ Bulk Requsts
 
 Proxy Mode
 ------------------
-    from pyjolokia.main import Jolokia
+    from pyjolokia import Jolokia
     j4p = Jolokia('http://localhost:8080/jolokia/')
     j4p.proxy(url = 'service:jmx:rmi://localhost:8080', user = 'SomeUser', password = 'somePassword')
 
