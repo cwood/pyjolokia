@@ -23,6 +23,19 @@ class Jolokia:
         self.data = None
         self.proxyConfig = {}
     def proxy(self, url, **kwargs):
+        '''
+            Used to add proxy info if using jolokia as a proxy to other
+            java jmx apps.
+
+            example
+
+            .. code-block:: python
+
+                j4p.proxy('service:jmx:rmi://somehost:1234/some.mbean.server',
+                           user = 'cwood',
+                           password = 'somePassword')
+
+        '''
         self.proxyConfig['target'] = {}
         self.proxyConfig['target']['url'] = url
         self.proxyConfig['target']['user'] = kwargs.get('user')
