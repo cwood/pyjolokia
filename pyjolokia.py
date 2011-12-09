@@ -6,6 +6,9 @@ except:
 import urllib2
 
 class Jolokia:
+    '''
+        Jolokia class
+    '''
     def __init__(self, url):
         self.url = url
         self.data = None
