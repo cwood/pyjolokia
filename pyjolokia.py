@@ -7,7 +7,16 @@ import urllib2
 
 class Jolokia:
     '''
-        Jolokia class
+        pyJolokia class Jolokia is a JSON featching python class.
+        It uses urllib2 and json or simplejson to do post requests
+        to a jolokia URL. Then returns back a python dictionary.
+
+        .. code-block:: python
+
+            j4p = Jolokia('http://localhost:9199/jolokia/')
+            j4p.request(type = 'read', mbean = 'java.lang:type=Threading',
+                        attribute = 'ThreadCount' )
+            >> { 'status' : 200, ...
     '''
     def __init__(self, url):
         self.url = url
