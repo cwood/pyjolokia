@@ -2,7 +2,6 @@ try:
     import json
 except:
     import simplejson as json
-
 import urllib2
 
 class Jolokia:
@@ -38,8 +37,10 @@ class Jolokia:
         '''
         self.proxyConfig['target'] = {}
         self.proxyConfig['target']['url'] = url
-        self.proxyConfig['target']['user'] = kwargs.get('user')
-        self.proxyConfig['target']['password'] = kwargs.get('password')
+        if 'user' in kwargs:
+            self.proxyConfig['target']['user'] = kwargs.get('user')
+        if 'password' in kwargs:
+            self.proxyConfig['target']['password'] = kwargs.get('password')
     def __getJson(self):
         if isinstance(self.data, dict):
             mainRequest = dict(self.data.items() + self.proxyConfig.items())
@@ -54,8 +55,10 @@ class Jolokia:
                                   {'content-type' : 'application/json'})
         responseStream = urllib2.urlopen(request)
         jsonData = responseStream.read()
-
-        pythonDict = json.loads(jsonData)
+        try:
+            pythonDict = json.loads(jsonData)
+        except:
+            raise NameError("Could not decode into json. Is Jolokia running at %s" % (self.url))
         return pythonDict
     def __mkrequest(self, type, **kwargs):
         newRequest = {}

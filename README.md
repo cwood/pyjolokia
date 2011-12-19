@@ -34,6 +34,21 @@ One Request
     # This then will return back a python dictionary of what happend to the request
     data = j4p.request(type = 'read', mbean='java.lang:type=Threading', attribute='ThreadCount')
 
+Write Request
+-------------------
+
+    from pyjolokia import Jolokia
+
+    j4p = Jolokia('http://localhost:8080/jolokia/')
+    write = j4p.request(type = 'write', mbean = 'java.lang:type=Memory', attribute = 'verbose', value='true')
+    >> {u'request': {u'attribute': u'Verbose',
+                     u'mbean': u'java.lang:type=Memory',
+                     u'type': u'write',
+                     u'value': u'true'},
+        u'status': 200,
+        u'timestamp': 1324256998,
+        u'value': False}
+
 Bulk Requsts
 -----------------
 
