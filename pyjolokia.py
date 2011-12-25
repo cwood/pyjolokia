@@ -58,7 +58,7 @@ class Jolokia:
         try:
             pythonDict = json.loads(jsonData)
         except:
-            raise NameError("Could not decode into json. Is Jolokia running at %s" % (self.url))
+            raise JolokiaError("Could not decode into json. Is Jolokia running at %s" % (self.url))
         return pythonDict
     def __mkrequest(self, type, **kwargs):
         newRequest = {}
@@ -94,3 +94,9 @@ class Jolokia:
     def getRequests(self):
         response = self.__getJson()
         return response
+
+class JolokiaError(Exception):
+    def __init__(self, message):
+        self.message = message
+    def __str__(self):
+        return self.message
