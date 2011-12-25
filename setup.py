@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='pyjolokia',
-      version = '0.1',
+      version = '0.1.1',
       description='Pure Python based Jolokia client',
       author='Colin Wood',
       license="Apache License Version 2.0",
