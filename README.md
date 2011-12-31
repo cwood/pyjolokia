@@ -11,15 +11,14 @@ Features
 * Post Request
 * Bulk Request
 * Proxy Support
-* Read, Write, List, Search is currenly working
+* Read, Write, List, ... and the main options are available.
+* 
 
-TODO
--------------------
+Setup
+---------------
 
-* Switch Between GET & POST Requests
-* Add abilitie to manage requests
-* Mimic simple api
-* Manage bulk requests
+    $ python2.7 setup.py build
+    $ python2.7 setup.py install
 
 Examples
 =====================
