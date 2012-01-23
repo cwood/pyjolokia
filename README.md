@@ -5,14 +5,16 @@ This is a pure pyhon jolokia client. I moduled its usage after the javascript ve
 Currently this will only support the protocol version 6. Also this was tested with python 2.7. 
 Not sure if it is Python3, or older than python 2.4. 
 
+Check the jolokia users guide for more information on how jolokia works. All options are available
+on ``pyjolokia`` as joloka supports.
+
 Features
 -------------
 
 * Post Request
 * Bulk Request
 * Proxy Support
-* Read, Write, List, ... and the main options are available.
-* 
+* Read, Write, List, Search, Exec, etc...
 
 Setup
 ---------------
