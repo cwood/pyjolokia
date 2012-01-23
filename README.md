@@ -8,6 +8,10 @@ Not sure if it is Python3, or older than python 2.4.
 Check the jolokia users guide for more information on how jolokia works. All options are available
 on ``pyjolokia`` as joloka supports.
 
+Check `_jolokia_users_guide` for more info.
+
+.. _jolokia_users_guide: http://www.jolokia.org/reference/html/index.html
+
 Features
 -------------
 
