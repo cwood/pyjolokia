@@ -50,11 +50,14 @@ class Jolokia:
                 request = dict(request.items() + self.proxyConfig.items())
                 mainRequest.append(request)
         jdata = json.dumps(mainRequest)
-        request = urllib2.Request(self.url, 
-                                  jdata, 
-                                  {'content-type' : 'application/json'})
-        responseStream = urllib2.urlopen(request)
-        jsonData = responseStream.read()
+        try:
+            request = urllib2.Request(self.url, 
+                                      jdata, 
+                                      {'content-type' : 'application/json'})
+            responseStream = urllib2.urlopen(request)
+            jsonData = responseStream.read()
+        except Exception, e:
+            raise JolokiaError('Could not connect. Got error %s' % (e))
         try:
             pythonDict = json.loads(jsonData)
         except:
