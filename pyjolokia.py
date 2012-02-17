@@ -21,6 +21,7 @@ class Jolokia:
         self.url = url
         self.data = None
         self.proxyConfig = {}
+        self.timeout = 10
     def proxy(self, url, **kwargs):
         '''
             Used to add proxy info if using jolokia as a proxy to other
@@ -54,7 +55,7 @@ class Jolokia:
             request = urllib2.Request(self.url, 
                                       jdata, 
                                       {'content-type' : 'application/json'})
-            responseStream = urllib2.urlopen(request)
+            responseStream = urllib2.urlopen(request, timeout = self.timeout)
             jsonData = responseStream.read()
         except Exception, e:
             raise JolokiaError('Could not connect. Got error %s' % (e))
