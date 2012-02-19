@@ -17,11 +17,12 @@ class Jolokia:
                         attribute = 'ThreadCount' )
             >> { 'status' : 200, ...
     '''
-    def __init__(self, url):
+    def __init__(self, url, **kwargs):
         self.url = url
         self.data = None
         self.proxyConfig = {}
-        self.timeout = 10
+
+        self.timeout = kwargs.get('timeout', 10)
     def proxy(self, url, **kwargs):
         '''
             Used to add proxy info if using jolokia as a proxy to other
@@ -50,6 +51,7 @@ class Jolokia:
             for request in self.data:
                 request = dict(request.items() + self.proxyConfig.items())
                 mainRequest.append(request)
+
         jdata = json.dumps(mainRequest)
         try:
             request = urllib2.Request(self.url, 
@@ -59,6 +61,7 @@ class Jolokia:
             jsonData = responseStream.read()
         except Exception, e:
             raise JolokiaError('Could not connect. Got error %s' % (e))
+
         try:
             pythonDict = json.loads(jsonData)
         except:
