@@ -4,6 +4,7 @@ except:
     import simplejson as json
 import urllib2
 
+
 class Jolokia:
     '''
         pyJolokia class Jolokia is a JSON featching python class.
@@ -23,6 +24,7 @@ class Jolokia:
         self.proxyConfig = {}
 
         self.timeout = kwargs.get('timeout', 10)
+
     def proxy(self, url, **kwargs):
         '''
             Used to add proxy info if using jolokia as a proxy to other
@@ -43,6 +45,7 @@ class Jolokia:
             self.proxyConfig['target']['user'] = kwargs.get('user')
         if 'password' in kwargs:
             self.proxyConfig['target']['password'] = kwargs.get('password')
+
     def __getJson(self):
         if isinstance(self.data, dict):
             mainRequest = dict(self.data.items() + self.proxyConfig.items())
@@ -54,10 +57,9 @@ class Jolokia:
 
         jdata = json.dumps(mainRequest)
         try:
-            request = urllib2.Request(self.url, 
-                                      jdata, 
-                                      {'content-type' : 'application/json'})
-            responseStream = urllib2.urlopen(request, timeout = self.timeout)
+            request = urllib2.Request(self.url, jdata,
+                    {'content-type': 'application/json'})
+            responseStream = urllib2.urlopen(request, timeout=self.timeout)
             jsonData = responseStream.read()
         except Exception, e:
             raise JolokiaError('Could not connect. Got error %s' % (e))
@@ -65,8 +67,10 @@ class Jolokia:
         try:
             pythonDict = json.loads(jsonData)
         except:
-            raise JolokiaError("Could not decode into json. Is Jolokia running at %s" % (self.url))
+            raise JolokiaError("Could not decode into json. \
+                    Is Jolokia running at %s" % (self.url))
         return pythonDict
+
     def __mkrequest(self, type, **kwargs):
         newRequest = {}
         newRequest['type'] = type
@@ -77,8 +81,8 @@ class Jolokia:
             newRequest['path'] = kwargs.get('path')
 
         if type == 'read':
-           newRequest['attribute'] = kwargs.get('attribute')
-           newRequest['path'] = kwargs.get('path')
+            newRequest['attribute'] = kwargs.get('attribute')
+            newRequest['path'] = kwargs.get('path')
         elif type == 'write':
             newRequest['attribute'] = kwargs.get('attribute', '')
             newRequest['value'] = kwargs.get('value', '')
@@ -87,23 +91,28 @@ class Jolokia:
             newRequest['operation'] = kwargs.get('operation')
             newRequest['arguments'] = kwargs.get('arguments')
         return newRequest
+
     def request(self, type, **kwargs):
         if not isinstance(self.data, dict):
             self.data = {}
         self.data = self.__mkrequest(type, **kwargs)
         response = self.__getJson()
         return response
+
     def add_request(self, type, **kwargs):
         new_response = self.__mkrequest(type, **kwargs)
         if not isinstance(self.data, list):
             self.data = list()
         self.data.append(new_response)
+
     def getRequests(self):
         response = self.__getJson()
         return response
 
+
 class JolokiaError(Exception):
     def __init__(self, message):
         self.message = message
+
     def __str__(self):
         return self.message
