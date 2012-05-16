@@ -30,16 +30,20 @@ Examples
 One Request
 ----------------
 
+```python
     from pyjolokia import Jolokia
     # Enter the jolokia url
     j4p = Jolokia('http://localhost:8080/jolokia/')
     # Put in the type, the mbean, or other options. Check the jolokia users guide for more info
     # This then will return back a python dictionary of what happend to the request
     data = j4p.request(type = 'read', mbean='java.lang:type=Threading', attribute='ThreadCount')
+    
+```    
 
 Write Request
 -------------------
 
+```python
     from pyjolokia import Jolokia
 
     j4p = Jolokia('http://localhost:8080/jolokia/')
@@ -51,10 +55,11 @@ Write Request
         u'status': 200,
         u'timestamp': 1324256998,
         u'value': False}
-
+```
 Exec Request
 -------------------------
 
+```python
     from pyjolokia import Jolokia
     
     j4p = Jolokia('http://localhost:8080/jolokia/')
@@ -68,9 +73,14 @@ Exec Request
         u'value': [{u'blockedCount': 34,
                     u'blockedTime': -1,
                     ...
+                    
+```
+
 Search Request
 --------------------------
 
+
+```python
     from pyjolokia import Jolokia
 
     j4p = Jolokia('http://localhost:8080/jolokia/')
@@ -92,9 +102,14 @@ Search Request
                    u'java.lang:type=OperatingSystem',
                    u'java.lang:name=Par Survivor Space,type=MemoryPool',
                    u'java.lang:name=CodeCacheManager,type=MemoryManager']}
+                   
+```
+
 List Request
 -----------------
 
+
+```python
     from pyjolokia import Jolokia
     j4p = Jolokia('http://localhost:8080/jolokia/')
     j4p.request(type = 'list', path='java.lang/type=Memory')
@@ -105,9 +120,13 @@ List Request
                                                   u'rw': False,
                                                   u'type': u'javax.management.openmbean.CompositeData'},
                                                   ...
+```
+
 Bulk Requsts
 -----------------
 
+
+```python
     from pyjolokia import Jolokia
     # Enter the jolokia url
     j4p = Jolokia('http://localhost:8080/jolokia/')
@@ -119,12 +138,16 @@ Bulk Requsts
 
     # Actull json request will be sent here
     bulkdata = j4p.getRequests()
+```
 
 Proxy Mode
 ------------------
+
+```python
     from pyjolokia import Jolokia
     j4p = Jolokia('http://localhost:8080/jolokia/')
     j4p.proxy(url = 'service:jmx:rmi://localhost:8080', user = 'SomeUser', password = 'somePassword')
 
     # Do normal requests here. All requests ill have the proxy info.
     ...
+```
