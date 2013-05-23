@@ -151,3 +151,15 @@ Proxy Mode
     # Do normal requests here. All requests ill have the proxy info.
     ...
 ```
+
+HTTP Basic Authentication
+--------------------------
+
+```python
+    from pyjolokia import Jolokia
+    j4p = Jolokia('http://localhost:8080/jolokia/')
+    j4p.auth(httpusername='this', httppassword='that')
+
+    # Do normal requests here. All requests ill have the proxy info.
+    ...
+```
