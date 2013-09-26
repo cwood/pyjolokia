@@ -3,6 +3,9 @@ try:
 except:
     import simplejson as json
 import urllib2
+import base64
+import re
+import sys
 
 
 class Jolokia:
@@ -22,8 +25,26 @@ class Jolokia:
         self.url = url
         self.data = None
         self.proxyConfig = {}
+        self.authConfig = {}
 
         self.timeout = kwargs.get('timeout', 10)
+
+    def auth(self, **kwargs):
+        '''
+            Used to add auth info if using jolokia via http to access the jmx
+
+            example
+
+            .. code-block:: python
+
+                j4p.auth(httpusername='user',httppassword='password')
+
+        '''
+        self.authConfig['auth'] = {}
+        if 'httpusername' in kwargs:
+            self.authConfig['auth']['username'] = kwargs.get('httpusername')
+        if 'httppassword' in kwargs:
+            self.authConfig['auth']['password'] = kwargs.get('httppassword')
 
     def proxy(self, url, **kwargs):
         '''
@@ -56,11 +77,22 @@ class Jolokia:
                 mainRequest.append(request)
 
         jdata = json.dumps(mainRequest)
+
+        if self.authConfig['auth']['username'] and self.authConfig['auth']['password']:
+                base64string = base64.encodestring('%s:%s' %
+                               (self.authConfig['auth']['username'],
+                                self.authConfig['auth']['password']))[:-1]
+                authheader = "Basic %s" % base64string
+
         try:
             request = urllib2.Request(self.url, jdata,
-                    {'content-type': 'application/json'})
-            responseStream = urllib2.urlopen(request, timeout=self.timeout)
-            jsonData = responseStream.read()
+                                      {'content-type': 'application/json'})
+
+            if authheader:
+                request.add_header("Authorization", authheader)
+
+                responseStream = urllib2.urlopen(request, timeout=self.timeout)
+                jsonData = responseStream.read()
         except Exception, e:
             raise JolokiaError('Could not connect. Got error %s' % (e))
 
