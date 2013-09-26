@@ -7,6 +7,7 @@ import base64
 import re
 import sys
 
+
 class Jolokia:
     '''
         pyJolokia class Jolokia is a JSON featching python class.
@@ -30,7 +31,7 @@ class Jolokia:
 
     def auth(self, **kwargs):
         '''
-            Used to add auth info if using jolokia via http auth to access the jmx
+            Used to add auth info if using jolokia via http to access the jmx
 
             example
 
@@ -41,9 +42,9 @@ class Jolokia:
         '''
         self.authConfig['auth'] = {}
         if 'httpusername' in kwargs:
-          self.authConfig['auth']['username'] = kwargs.get('httpusername')
+            self.authConfig['auth']['username'] = kwargs.get('httpusername')
         if 'httppassword' in kwargs:
-          self.authConfig['auth']['password'] = kwargs.get('httppassword')
+            self.authConfig['auth']['password'] = kwargs.get('httppassword')
 
     def proxy(self, url, **kwargs):
         '''
@@ -78,19 +79,21 @@ class Jolokia:
         jdata = json.dumps(mainRequest)
 
         if self.authConfig['auth']['username'] != '':
-          if self.authConfig['auth']['password'] != '':
-            base64string = base64.encodestring('%s:%s' % (self.authConfig['auth']['username'], self.authConfig['auth']['password']))[:-1]
-            authheader =  "Basic %s" % base64string
+            if self.authConfig['auth']['password'] != '':
+                base64string = base64.encodestring('%s:%s' %
+                               (self.authConfig['auth']['username'],
+                                self.authConfig['auth']['password']))[:-1]
+                authheader = "Basic %s" % base64string
 
         try:
             request = urllib2.Request(self.url, jdata,
-                    {'content-type': 'application/json'})
+                                      {'content-type': 'application/json'})
 
             if authheader:
-              request.add_header("Authorization", authheader)
+                request.add_header("Authorization", authheader)
 
-            responseStream = urllib2.urlopen(request, timeout=self.timeout)
-            jsonData = responseStream.read()
+                responseStream = urllib2.urlopen(request, timeout=self.timeout)
+                jsonData = responseStream.read()
         except Exception, e:
             raise JolokiaError('Could not connect. Got error %s' % (e))
 
