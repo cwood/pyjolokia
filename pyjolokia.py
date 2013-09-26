@@ -78,8 +78,7 @@ class Jolokia:
 
         jdata = json.dumps(mainRequest)
 
-        if self.authConfig['auth']['username'] != '':
-            if self.authConfig['auth']['password'] != '':
+        if self.authConfig['auth']['username'] and self.authConfig['auth']['password']:
                 base64string = base64.encodestring('%s:%s' %
                                (self.authConfig['auth']['username'],
                                 self.authConfig['auth']['password']))[:-1]
