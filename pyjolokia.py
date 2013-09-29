@@ -79,12 +79,15 @@ class Jolokia:
         jdata = json.dumps(mainRequest)
         authheader = None
 
-        if self.authConfig['auth']['username'] and self.authConfig['auth']['password']:
-                base64string = base64.encodestring('%s:%s' %
-                               (self.authConfig['auth']['username'],
-                                self.authConfig['auth']['password']))[:-1]
+        if self.authConfig:
 
-                authheader = "Basic %s" % base64string
+            if self.authConfig['auth']['username'] and self.authConfig['auth']['password']:
+
+                    base64string = base64.encodestring('%s:%s' %
+                                   (self.authConfig['auth']['username'],
+                                    self.authConfig['auth']['password']))[:-1]
+
+                    authheader = "Basic %s" % base64string
 
         try:
             request = urllib2.Request(self.url, jdata,
