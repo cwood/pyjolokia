@@ -14,4 +14,5 @@ setup(name='pyjolokia',
       long_description=open('README.rst').read(),
       include_package_data=True,
       keywords=['jolokia', 'jmx'],
+      use_2to3=True
  )
