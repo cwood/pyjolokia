@@ -2,8 +2,8 @@ pyJolokia
 ================
 
 This is a pure pyhon jolokia client. I moduled its usage after the javascript version.
-Currently this will only support the protocol version 6. Also this was tested with python 2.7. 
-Not sure if it is Python3, or older than python 2.4. 
+Currently this will only support the protocol version 6. Also this was tested with python 2.7.
+Not sure if it is Python3, or older than python 2.4.
 
 Check the jolokia users guide for more information on how jolokia works. All options are available
 on ``pyjolokia`` as joloka supports.
@@ -30,20 +30,18 @@ Examples
 One Request
 ----------------
 
-```python
+.. code-block:: python
     from pyjolokia import Jolokia
     # Enter the jolokia url
     j4p = Jolokia('http://localhost:8080/jolokia/')
     # Put in the type, the mbean, or other options. Check the jolokia users guide for more info
     # This then will return back a python dictionary of what happend to the request
     data = j4p.request(type = 'read', mbean='java.lang:type=Threading', attribute='ThreadCount')
-    
-```    
 
 Write Request
 -------------------
 
-```python
+.. code-block:: python
     from pyjolokia import Jolokia
 
     j4p = Jolokia('http://localhost:8080/jolokia/')
@@ -55,13 +53,13 @@ Write Request
         u'status': 200,
         u'timestamp': 1324256998,
         u'value': False}
-```
+
 Exec Request
 -------------------------
 
-```python
+.. code-block:: python
     from pyjolokia import Jolokia
-    
+
     j4p = Jolokia('http://localhost:8080/jolokia/')
     j4p.request(type = 'exec', mbean='java.lang:type=Threading', operation='dumpAllThreads', arguments = [True, True])
     >> {u'request': {u'arguments': [True, True],
@@ -73,14 +71,12 @@ Exec Request
         u'value': [{u'blockedCount': 34,
                     u'blockedTime': -1,
                     ...
-                    
-```
 
 Search Request
 --------------------------
 
 
-```python
+.. code-block:: python
     from pyjolokia import Jolokia
 
     j4p = Jolokia('http://localhost:8080/jolokia/')
@@ -102,14 +98,13 @@ Search Request
                    u'java.lang:type=OperatingSystem',
                    u'java.lang:name=Par Survivor Space,type=MemoryPool',
                    u'java.lang:name=CodeCacheManager,type=MemoryManager']}
-                   
-```
+
 
 List Request
 -----------------
 
 
-```python
+.. code-block:: python
     from pyjolokia import Jolokia
     j4p = Jolokia('http://localhost:8080/jolokia/')
     j4p.request(type = 'list', path='java.lang/type=Memory')
@@ -120,46 +115,42 @@ List Request
                                                   u'rw': False,
                                                   u'type': u'javax.management.openmbean.CompositeData'},
                                                   ...
-```
 
 Bulk Requsts
 -----------------
 
 
-```python
+.. code-block:: python
     from pyjolokia import Jolokia
     # Enter the jolokia url
     j4p = Jolokia('http://localhost:8080/jolokia/')
     '''
-        Put as many requests as you want. 
+        Put as many requests as you want.
     '''
     j4p.add_request(type = 'read', mbean='java.lang:type=Memory')
     j4p.add_request(type = 'read', mbean='java.lang:type=Threading', attribute='ThreadCount')
 
     # Actull json request will be sent here
     bulkdata = j4p.getRequests()
-```
 
 Proxy Mode
 ------------------
 
-```python
+.. code-block:: python
     from pyjolokia import Jolokia
     j4p = Jolokia('http://localhost:8080/jolokia/')
     j4p.proxy(url = 'service:jmx:rmi://localhost:8080', user = 'SomeUser', password = 'somePassword')
 
     # Do normal requests here. All requests ill have the proxy info.
     ...
-```
 
 HTTP Basic Authentication
 --------------------------
 
-```python
+.. code-block:: python
     from pyjolokia import Jolokia
     j4p = Jolokia('http://localhost:8080/jolokia/')
     j4p.auth(httpusername='this', httppassword='that')
 
     # Do normal requests here. All requests ill have the proxy info.
     ...
-```
