@@ -5,7 +5,7 @@ import pyjolokia
 class CoreJolikiaTests(unittest.TestCase):
 
     def setUp(self):
-        self.client = pyjolokia.Jolokia('http://example.com/joloka/')
+        self.client = pyjolokia.Jolokia('http://httpbin.org/post')
 
     def default_test_timeout(self):
         """ Test default timeout """
@@ -23,3 +23,28 @@ class CoreJolikiaTests(unittest.TestCase):
                          'test')
         self.assertEqual(self.client.authConfig['auth']['password'],
                          'testpassword')
+
+    def test_read_response(self):
+        response = self.client.request(
+            type='read',
+            mbean='java.lang:type=Threading',
+            attribute='ThreadCount')
+
+        json_data = response['json']
+
+        self.assertEqual(json_data['type'], 'read')
+        self.assertEqual(json_data['mbean'], 'java.lang:type=Threading')
+        self.assertEqual(json_data['attribute'], 'ThreadCount')
+
+    def test_auth_header(self):
+
+        self.client.auth(httpusername='test', httppassword='testpassword')
+
+        response = self.client.request(
+            type='read',
+            mbean='java.lang:type=Threading',
+            attribute='ThreadCount')
+
+        headers = response['headers']
+
+        self.assertTrue('Authorization' in headers)
