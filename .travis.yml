@@ -7,3 +7,5 @@ python:
 script: nosetests
 install:
     python setup.py install
+before_script:
+    - if [[ $TRAVIS_PYTHON_VERSION == '3'* ]]; then 2to3 --write --nobackups .; fi ]]
