@@ -10,8 +10,8 @@ on ``pyjolokia`` as joloka supports.
 
 Check -> http://www.jolokia.org/reference/html/index.html for more information.
 
-.. image:: https://travis-ci.org/cwood/pyjolokia.png?branch=master   :target:
-https://travis-ci.org/cwood/pyjolokia
+.. image:: https://travis-ci.org/cwood/pyjolokia.png?branch=master   
+     :target: https://travis-ci.org/cwood/pyjolokia
 
 Features
 -------------
