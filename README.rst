@@ -31,6 +31,7 @@ One Request
 ----------------
 
 .. code-block:: python
+
     from pyjolokia import Jolokia
     # Enter the jolokia url
     j4p = Jolokia('http://localhost:8080/jolokia/')
@@ -42,6 +43,7 @@ Write Request
 -------------------
 
 .. code-block:: python
+
     from pyjolokia import Jolokia
 
     j4p = Jolokia('http://localhost:8080/jolokia/')
@@ -58,6 +60,7 @@ Exec Request
 -------------------------
 
 .. code-block:: python
+
     from pyjolokia import Jolokia
 
     j4p = Jolokia('http://localhost:8080/jolokia/')
@@ -77,6 +80,7 @@ Search Request
 
 
 .. code-block:: python
+
     from pyjolokia import Jolokia
 
     j4p = Jolokia('http://localhost:8080/jolokia/')
@@ -105,6 +109,7 @@ List Request
 
 
 .. code-block:: python
+
     from pyjolokia import Jolokia
     j4p = Jolokia('http://localhost:8080/jolokia/')
     j4p.request(type = 'list', path='java.lang/type=Memory')
@@ -121,6 +126,7 @@ Bulk Requsts
 
 
 .. code-block:: python
+
     from pyjolokia import Jolokia
     # Enter the jolokia url
     j4p = Jolokia('http://localhost:8080/jolokia/')
@@ -137,6 +143,7 @@ Proxy Mode
 ------------------
 
 .. code-block:: python
+
     from pyjolokia import Jolokia
     j4p = Jolokia('http://localhost:8080/jolokia/')
     j4p.proxy(url = 'service:jmx:rmi://localhost:8080', user = 'SomeUser', password = 'somePassword')
@@ -148,6 +155,7 @@ HTTP Basic Authentication
 --------------------------
 
 .. code-block:: python
+
     from pyjolokia import Jolokia
     j4p = Jolokia('http://localhost:8080/jolokia/')
     j4p.auth(httpusername='this', httppassword='that')
