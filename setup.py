@@ -19,7 +19,7 @@ class PyTest(Command):
         raise SystemExit(errno)
 
 setup(name='pyjolokia',
-      version = '0.2.0',
+      version = '0.3.0',
       description='Pure Python based Jolokia client',
       author='Colin Wood',
       license="Apache License Version 2.0",
@@ -38,6 +38,6 @@ setup(name='pyjolokia',
           'Programming Language :: Python :: 3.2',
           'Programming Language :: Python :: 3.3',
           'Topic :: Software Development :: Libraries :: Java Libraries',
-      ]
+      ],
       **kw
 )
