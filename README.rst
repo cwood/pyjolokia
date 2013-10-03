@@ -18,10 +18,12 @@ Features
 * Post Request
 * Bulk Request
 * Proxy Support
-* Read, Write, List, Search, Exec, etc...
+* Read, Write, List, Search, Exec.
 
 Setup
 ---------------
+
+.. code-block:: sh
 
     $ python2.7 setup.py build
     $ python2.7 setup.py install
