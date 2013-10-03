@@ -2,7 +2,21 @@ try:
     import json
 except:
     import simplejson as json
-import urllib2
+
+try:
+    import urllib2 as urllib
+except ImportError:
+    import urllib
+
+try:
+    from urllib2 import Request
+except ImportError:
+    from urllib.request import Request
+try:
+    from urllib2 import urlopen
+except ImportError:
+    from urllib.request import urlopen
+
 import base64
 import re
 import sys
@@ -69,40 +83,47 @@ class Jolokia:
 
     def __getJson(self):
         if isinstance(self.data, dict):
-            mainRequest = dict(self.data.items() + self.proxyConfig.items())
+            mainRequest = self.data.copy()
+            mainRequest.update(self.proxyConfig)
         else:
             mainRequest = []
             for request in self.data:
-                request = dict(request.items() + self.proxyConfig.items())
+                request = request.copy()
+                request.update(self.proxyConfig)
                 mainRequest.append(request)
 
-        jdata = json.dumps(mainRequest)
+        jdata = json.dumps(mainRequest).encode('utf-8')
+
         authheader = None
 
         if self.authConfig:
 
             if self.authConfig['auth']['username'] and self.authConfig['auth']['password']:
 
-                    base64string = base64.encodestring(b'%s:%s' %
-                                   (self.authConfig['auth']['username'],
-                                    self.authConfig['auth']['password']))[:-1]
+                    auth_string = '%s:%s' % (
+                        self.authConfig['auth']['username'],
+                        self.authConfig['auth']['password']
+                    )
+
+                    base64string = base64.encodestring(
+                        auth_string.encode('utf8'))[:-1]
 
                     authheader = "Basic %s" % base64string
 
         try:
-            request = urllib2.Request(self.url, jdata,
-                                      {'content-type': 'application/json'})
+            request = Request(self.url, jdata,
+                              {'content-type': 'application/json'})
 
             if authheader:
                 request.add_header("Authorization", authheader)
 
-            responseStream = urllib2.urlopen(request, timeout=self.timeout)
+            responseStream = urlopen(request, timeout=self.timeout)
             jsonData = responseStream.read()
-        except Exception, e:
+        except Exception as e:
             raise JolokiaError('Could not connect. Got error %s' % (e))
 
         try:
-            pythonDict = json.loads(jsonData)
+            pythonDict = json.loads(jsonData.decode())
         except:
             raise JolokiaError("Could not decode into json. \
                     Is Jolokia running at %s" % (self.url))
