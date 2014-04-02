@@ -1,0 +1,7 @@
+build/
+dist/
+pyjolokia.egg-info/
+.tox/
+
+*.pyc
+
