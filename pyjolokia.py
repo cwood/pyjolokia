@@ -18,8 +18,6 @@ except ImportError:
     from urllib.request import urlopen
 
 import base64
-import re
-import sys
 
 
 class Jolokia:
@@ -40,6 +38,7 @@ class Jolokia:
         self.data = None
         self.proxyConfig = {}
         self.authConfig = {}
+        self.reqConfig = {}
 
         self.timeout = kwargs.get('timeout', 10)
 
@@ -59,6 +58,21 @@ class Jolokia:
             self.authConfig['auth']['username'] = kwargs.get('httpusername')
         if 'httppassword' in kwargs:
             self.authConfig['auth']['password'] = kwargs.get('httppassword')
+
+    def config(self, **kwargs):
+        '''
+            Used to set configuration options for the request
+            see: http://www.jolokia.org/reference/html/protocol.html#processing-parameters
+
+            example
+
+            .. code-block:: python
+
+                j4p.config(ignoreErrors=True)
+        '''
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                self.reqConfig[key] = value
 
     def proxy(self, url, **kwargs):
         '''
@@ -132,6 +146,7 @@ class Jolokia:
     def __mkrequest(self, type, **kwargs):
         newRequest = {}
         newRequest['type'] = type
+        newRequest['config'] = self.reqConfig
 
         if type != 'list':
             newRequest['mbean'] = kwargs.get('mbean')

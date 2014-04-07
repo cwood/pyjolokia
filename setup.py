@@ -5,21 +5,26 @@ kw = {}
 if sys.version_info >= (3,):
         kw['use_2to3'] = True
 
+
 class PyTest(Command):
     user_options = []
+
     def initialize_options(self):
         pass
+
     def finalize_options(self):
         pass
+
     def run(self):
-        import sys,subprocess
+        import sys
+        import subprocess
         errno = subprocess.call([sys.executable,
                                  'runtests.py',
                                  'tests.py'])
         raise SystemExit(errno)
 
 setup(name='pyjolokia',
-      version = '0.3.0',
+      version='0.3.1',
       description='Pure Python based Jolokia client',
       author='Colin Wood',
       license="Apache License Version 2.0",
@@ -30,7 +35,7 @@ setup(name='pyjolokia',
       long_description=open('README.rst').read(),
       include_package_data=True,
       keywords=['jolokia', 'jmx'],
-      cmdclass = {'test': PyTest},
+      cmdclass={'test': PyTest},
       classifiers=[
           'Development Status :: 4 - Beta'
           'Programming Language :: Python :: 2.6',

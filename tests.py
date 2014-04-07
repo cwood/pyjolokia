@@ -24,6 +24,19 @@ class CoreJolikiaTests(unittest.TestCase):
         self.assertEqual(self.client.authConfig['auth']['password'],
                          'testpassword')
 
+    def test_set_config(self):
+        self.client.config(ignoreErrors=True)
+
+        self.assertEqual(self.client.reqConfig['ignoreErrors'], True)
+        response = self.client.request(
+            type='read',
+            mbean='java.lang:type=Threading',
+            attribute='ThreadCount')
+
+        json_data = response['json']
+
+        self.assertEqual(json_data['config']['ignoreErrors'], True)
+
     def test_read_response(self):
         response = self.client.request(
             type='read',
