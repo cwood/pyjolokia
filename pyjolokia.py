@@ -135,6 +135,8 @@ class Jolokia:
             jsonData = responseStream.read()
         except Exception as e:
             raise JolokiaError('Could not connect. Got error %s' % (e))
+        finally:
+            responseStream.close()
 
         try:
             pythonDict = json.loads(jsonData.decode())
