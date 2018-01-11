@@ -122,7 +122,7 @@ class Jolokia:
                     base64string = base64.encodestring(
                         auth_string.encode('utf8'))[:-1]
 
-                    authheader = "Basic %s" % base64string
+                    authheader = "Basic %s" % base64string.decode()
 
         try:
             request = Request(self.url, jdata,
