@@ -114,22 +114,19 @@ class Jolokia:
 
             if self.authConfig['auth']['username'] and self.authConfig['auth']['password']:
 
-                    auth_string = '%s:%s' % (
-                        self.authConfig['auth']['username'],
-                        self.authConfig['auth']['password']
-                    )
-
-                    base64string = base64.encodestring(
-                        auth_string.encode('utf8'))[:-1]
-
-                    authheader = "Basic %s" % base64string.decode()
+                authheader = base64.standard_b64encode(
+                        ('%s:%s' % (
+                            self.authConfig['auth']['username'],
+                            self.authConfig['auth']['password']
+                          )
+                        ).encode()).decode()
 
         try:
             request = Request(self.url, jdata,
                               {'content-type': 'application/json'})
 
             if authheader:
-                request.add_header("Authorization", authheader)
+                request.add_header("Authorization", 'Basic ' + authheader)
 
             responseStream = urlopen(request, timeout=self.timeout)
             jsonData = responseStream.read()
