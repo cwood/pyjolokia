@@ -39,6 +39,7 @@ class Jolokia:
         self.proxyConfig = {}
         self.authConfig = {}
         self.reqConfig = {}
+        self.reqTarget = {}
 
         self.timeout = kwargs.get('timeout', 10)
 
@@ -73,6 +74,21 @@ class Jolokia:
         if kwargs is not None:
             for key, value in kwargs.iteritems():
                 self.reqConfig[key] = value
+
+    def target(self, **kwargs):
+        '''
+            Used to set configuration options for the request
+            see: http://www.jolokia.org/reference/html/protocol.html#processing-parameters
+
+            example
+
+            .. code-block:: python
+
+                j4p.target('service:jmx:rmi:///jndi/rmi://localhost:{}/jmxrmi' . format(8099))
+        '''
+        if kwargs is not None:
+            for key, value in kwargs.items():
+                self.reqTarget[key] = value
 
     def proxy(self, url, **kwargs):
         '''
@@ -146,6 +162,7 @@ class Jolokia:
         newRequest = {}
         newRequest['type'] = type
         newRequest['config'] = self.reqConfig
+        newRequest['target'] = self.reqTarget
 
         if type != 'list':
             newRequest['mbean'] = kwargs.get('mbean')
