@@ -1,9 +1,4 @@
 from setuptools import setup, Command
-import sys
-
-kw = {}
-if sys.version_info >= (3,):
-        kw['use_2to3'] = True
 
 
 class PyTest(Command):
@@ -24,7 +19,7 @@ class PyTest(Command):
         raise SystemExit(errno)
 
 setup(name='pyjolokia',
-      version='0.3.1',
+      version='0.3.2',
       description='Pure Python based Jolokia client',
       author='Colin Wood',
       license="Apache License Version 2.0",
@@ -44,5 +39,4 @@ setup(name='pyjolokia',
           'Programming Language :: Python :: 3.3',
           'Topic :: Software Development :: Libraries :: Java Libraries',
       ],
-      **kw
 )
