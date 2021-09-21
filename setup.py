@@ -1,9 +1,4 @@
 from setuptools import setup, Command
-import sys
-
-kw = {}
-if sys.version_info >= (3,):
-        kw['use_2to3'] = True
 
 
 class PyTest(Command):
@@ -44,5 +39,4 @@ setup(name='pyjolokia',
           'Programming Language :: Python :: 3.3',
           'Topic :: Software Development :: Libraries :: Java Libraries',
       ],
-      **kw
 )
